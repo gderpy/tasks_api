@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "tasks-api"
+version = "0.1.0"
+description = "Мини-сервис задач на FaspAPI для портфолио"
+authors = ["Yury Petrov <gderpov@yandex.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.117.1"
+uvicorn = {extras = ["standard"], version = "^0.36.0"}
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.4.2"
+ruff = "^0.13.1"
+pre-commit = "^4.3.0"
+httpx = "^0.28.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+pythonpath = ["."]
