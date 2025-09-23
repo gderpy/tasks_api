@@ -6,7 +6,7 @@ from typing import Optional
 from app.config import settings
 
 # алгоритм подписи токена (HS256 = HMAC + SHA-256)
-ALGO = "HS256" 
+ALGO = "HS256"
 
 # секретный ключ
 SECRET = settings.JWT_SECRET
@@ -35,11 +35,11 @@ def create_access_token(sub: str) -> str:
 
     payload = {
         # идентификатор пользователя (например, user_id или email)
-        "sub": sub, 
+        "sub": sub,
         # (issued at) — время создания токена.
         "iat": int(now.timestamp()),
         # (expiry) — срок жизни токена (now + ACCESS_TTL_MIN).
-        "exp": int((now + timedelta(minutes=ACCESS_TTL_MIN)).timestamp())
+        "exp": int((now + timedelta(minutes=ACCESS_TTL_MIN)).timestamp()),
     }
 
     # JWT: header.payload.signature
@@ -69,11 +69,11 @@ def decode_token(token: str) -> Optional[str]:
 
         data = jwt.decode(token, SECRET, algorithms=[ALGO])
 
-        # Извлекаем из payload поле sub — то, что мы сами туда клали 
+        # Извлекаем из payload поле sub — то, что мы сами туда клали
         # при создании токена (например, id пользователя).
-        
+
         return data.get("sub")
-    
+
     # Если токен:
     # подделан (подпись не совпала),
     # просрочен (exp меньше текущего времени),
